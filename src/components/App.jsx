@@ -3,24 +3,30 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout/Layout';
 import { Section } from './Section/Section';
+import { ImageGallery } from './ImageGallery/ImageGallery';
 
 export class App extends Component {
   state = {
     imagesName: '',
   };
+
   handleFormSubmit = imagesName => {
     this.setState({ imagesName });
-    console.log(imagesName);
   };
 
   render() {
     return (
-      <Layout>
+      <>
         <Section>
           <Searchbar onSubmit={this.handleFormSubmit} />
         </Section>
-        <GlobalStyle />
-      </Layout>
+        <Layout>
+          <Section>
+            <ImageGallery imagesName={this.state.imagesName} />
+          </Section>
+          <GlobalStyle />
+        </Layout>
+      </>
     );
   }
 }
