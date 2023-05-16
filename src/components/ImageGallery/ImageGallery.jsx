@@ -10,27 +10,24 @@ export class ImageGallery extends Component {
     images: [],
     error: null,
     status: 'idle',
-    page: 1,
     showModal: false,
   };
 
   async componentDidUpdate(prevProps, prevState) {
     if (prevProps.imagesName !== this.props.imagesName) {
-      this.setState({ images: [] });
+      this.setState(() => ({ images: [] }));
     }
 
     if (
       prevProps.imagesName !== this.props.imagesName ||
-      prevState.page !== this.state.page
+      prevProps.page !== this.props.page
     ) {
       this.setState({ status: 'pending', error: null });
-
       try {
         const fetchedImage = await fetchImage(
           this.props.imagesName,
-          this.state.page
+          this.props.page
         );
-
         if (fetchedImage.length === 0) {
           throw new Error();
         }
@@ -44,14 +41,8 @@ export class ImageGallery extends Component {
     }
   }
 
-  handleNextPage = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
-  };
-
   toggleModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
+    this.setState({ showModal: !this.state.showModal });
   };
 
   render() {
@@ -68,7 +59,7 @@ export class ImageGallery extends Component {
                 </ImageItem>
               ))}
           </ImageList>
-          <Button onClick={this.handleNextPage} />
+          <Button onClick={this.props.handleNextPage} />
         </>
       );
     }

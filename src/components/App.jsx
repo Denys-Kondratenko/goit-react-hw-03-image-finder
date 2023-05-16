@@ -8,10 +8,17 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 export class App extends Component {
   state = {
     imagesName: '',
+    page: 1,
   };
 
   handleFormSubmit = imagesName => {
-    this.setState({ imagesName });
+    this.setState({ imagesName, page: 1 });
+  };
+
+  handleNextPage = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
   };
 
   render() {
@@ -22,7 +29,11 @@ export class App extends Component {
         </Section>
         <Layout>
           <Section>
-            <ImageGallery imagesName={this.state.imagesName} />
+            <ImageGallery
+              imagesName={this.state.imagesName}
+              handleNextPage={this.handleNextPage}
+              page={this.state.page}
+            />
           </Section>
           <GlobalStyle />
         </Layout>
