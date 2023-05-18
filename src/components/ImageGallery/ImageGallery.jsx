@@ -10,7 +10,6 @@ export class ImageGallery extends Component {
     images: [],
     error: null,
     status: 'idle',
-    showModal: false,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -40,10 +39,6 @@ export class ImageGallery extends Component {
       }
     }
   }
-
-  toggleModal = () => {
-    this.setState({ showModal: !this.state.showModal });
-  };
 
   render() {
     const { images, status } = this.state;
